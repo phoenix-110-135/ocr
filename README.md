@@ -3,31 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>README - Image to Text OCR Application</title>
-  <style>
-      body {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          margin: 20px;
-          padding: 20px;
-          background-color: #f4f4f4;
-          color: #333;
-      }
-      h1, h2, h3 {
-          color: #0056b3;
-      }
-      code {
-          background-color: #e7e7e7;
-          padding: 2px 4px;
-          border-radius: 4px;
-      }
-      pre {
-          background-color: #e7e7e7;
-          padding: 10px;
-          border-radius: 4px;
-          overflow-x: auto;
-      }
-  </style>
+
 </head>
 <body>
 
