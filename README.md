@@ -29,7 +29,7 @@
 </ul>
 
 <h2>Installation</h2>
-<pre><code>git clone https://github.com/yourusername/your-repo.git
+<pre><code>git clone https://github.com/phoenix-110-135/ocr.git
 cd your-repo</code></pre>
 <p>Then install the dependencies:</p>
 <pre><code>pip install -r requirements.txt</code></pre>
