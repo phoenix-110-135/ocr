@@ -30,7 +30,7 @@
 
 <h2>Installation</h2>
 <pre><code>git clone https://github.com/phoenix-110-135/ocr.git
-cd your-repo</code></pre>
+cd ocr</code></pre>
 <p>Then install the dependencies:</p>
 <pre><code>pip install -r requirements.txt</code></pre>
 
