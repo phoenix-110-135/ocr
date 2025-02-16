@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" dir="rtl">
+    <title>result ocr</title>
+    <link rel="stylesheet" type="font.ttf" href="font/font/Lalezar-Regular.ttf">
+    <style>
+        @font-face {
+            font-family: "font";
+            src: url("font/Lalezar-Regular.ttf") format("truetype");
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --size: 20px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: hsl(233, 100%, 5%);
+            font-family: Arial, sans-serif;
+            color: #000000; 
+            overflow: hidden;
+        }
+
+        .el {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(from 180deg at 50% 70%, hsla(0, 0%, 98%, 1) 0deg,#00cc00 72deg, rgb(244, 244, 0) 144deg, #000000 216deg, #4dffbf 288deg, hsla(0, 0%, 98%, 1) 1turn);
+            mask: radial-gradient(circle at 50% 50%, white 2px, transparent 2.5px) 50% 50% / var(--size) var(--size), url("https://assets.codepen.io/605876/noise-mask.png") 256px 50% / 256px 256px;
+            mask-composite: intersect;
+            animation: flicker 20s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes flicker {
+            to {
+                mask-position: 50% 50%, 0 50%;
+            }
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background: purple;
+            opacity: 0.7; 
+            box-shadow: 0 4px 8px rgba(255, 162, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            overflow: auto; 
+        }
+
+        h1 {
+            text-align: center;
+            color: #fcae05;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        p {
+            font-size: 24px;
+            line-height: 1.8;
+            font-family: 'font', sans-serif;
+            direction: rtl;
+            color: #000000;
+            white-space: pre-wrap;
+            text-align: center;
+            animation: fadeIn 1s ease-in forwards;
+            max-height: calc(1.8em * 2);
+            overflow-y: auto;
+            position: relative;
+            padding-bottom: 1em;
+        }
+
+        p::-webkit-scrollbar {
+            display: none;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ffbf00, #ffbf00);
+            color: purple;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buttons button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        .buttons button:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .buttons button:hover {
+            background: linear-gradient(45deg, #ff9a00, #ff9a00);
+            transform: scale(1.1);
+        }
+
+        a {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ffbf00, #ffbf00);
+            color: purple;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        a:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        a:hover:before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        a:hover {
+            background: linear-gradient(45deg, #ff9a00, #ff9a00);
+            transform: scale(1.01);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+            p {
+                font-size: 20px;
+            }
+            .buttons button {
+                padding: 8px 16px;
+            }
+            a {
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 5px;
+            }
+            p {
+                font-size: 18px;
+            }
+            .buttons button {
+                padding: 6px 12px;
+            }
+            a {
+                padding: 6px 12px;
+            }
+        }
+    </style>
+    <script>
+        function copyText() {
+            var text = document.getElementById("extracted-text").innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                alert("Text copied to clipboard!");
+            }).catch(function(error) {
+                alert("Failed to copy text: " + error);
+            });
+        }
+
+        function downloadTxt() {
+            var text = document.getElementById("extracted-text").innerText;
+            var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "extracted_text.txt";
+            link.click();
+        }
+
+        function downloadWord() {
+            var text = document.getElementById("extracted-text").innerText;
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+                "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+                "xmlns='http://www.w3.org/TR/REC-html40'>" +
+                "<head><meta charset='utf-8'></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header + text + footer;
+            
+            var blob = new Blob(['\ufeff', sourceHTML], { type: 'application/msword' });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "extracted_text.doc";
+            link.click();
+        }
+    </script>
+</head>
+<body>
+    <div class="el"></div>
+    <div class="container">
+        <h1>result</h1>
+        <p id="extracted-text"><b>{{ text }}</b></p>
+        <div class="buttons">
+            <button onclick="copyText()">Copy</button>
+            <button onclick="downloadTxt()">Download TXT</button>
+            <button onclick="downloadWord()">Download Word</button>
+        </div>
+        <a href="/">back</a>
+    </div>
+</body>
+</html>
